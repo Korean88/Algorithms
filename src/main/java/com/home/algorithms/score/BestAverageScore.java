@@ -1,5 +1,6 @@
 package com.home.algorithms.score;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
@@ -14,9 +15,7 @@ public class BestAverageScore {
             if (table.get(name) != null) {
                 table.get(name).add(score);
             } else {
-                List<Integer> list = new ArrayList<>();
-                list.add(score);
-                table.put(name, list);
+                table.put(name, Lists.newArrayList(score));
             }
         }
         return table.entrySet().stream()
