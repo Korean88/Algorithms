@@ -12,6 +12,26 @@ class WordSubsetsTest extends Specification {
         def B = arrayB as String[]
 
         when: "method called"
+        def res = wordSubsets.bruteForceWordSubsets(A, B)
+
+        then: 'result should contain 3 words from A'
+        res == expected
+
+        where: 'array B and expected result'
+        arrayB              | expected
+        ["e", "o"]          | ["facebook", "google", "leetcode"]
+        ["l", "e"]          | ["apple", "google", "leetcode"]
+        ["e", "oo"]         | ["facebook", "google"]
+        ["lo", "eo"]        | ["google", "leetcode"]
+        ["ec", "oc", "ceo"] | ["facebook", "leetcode"]
+    }
+
+    def 'test method with sorting'() {
+        given: 'array A and array B'
+        def A = ["amazon", "apple", "facebook", "google", "leetcode"] as String[]
+        def B = arrayB as String[]
+
+        when: "method called"
         def res = wordSubsets.wordSubsets(A, B)
 
         then: 'result should contain 3 words from A'
@@ -21,7 +41,7 @@ class WordSubsetsTest extends Specification {
         arrayB              | expected
         ["e", "o"]          | ["facebook", "google", "leetcode"]
         ["l", "e"]          | ["apple", "google", "leetcode"]
-//        ["e", "oo"]         | ["facebook", "google"]
+        ["e", "oo"]         | ["facebook", "google"]
         ["lo", "eo"]        | ["google", "leetcode"]
         ["ec", "oc", "ceo"] | ["facebook", "leetcode"]
     }
