@@ -7,25 +7,48 @@ public class AddTwoNumbersFromArray {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         String listNodeAsString1 = stringFromListNode(l1);
         String listNodeAsString2 = stringFromListNode(l2);
-        //923
-        //1234
-        //329+4321=4650 -> 0564
         int numberOfElementsMin;
-        if (listNodeAsString1.length() < listNodeAsString2.length()) {
-            numberOfElementsMin = listNodeAsString1.length();
-        } else {
-            numberOfElementsMin = listNodeAsString2.length();
-        }
+        int lengthL1 = listNodeAsString1.length();
+        int lengthL2 = listNodeAsString2.length();
+        numberOfElementsMin = Math.min(lengthL1, lengthL2);
         StringBuilder resultStringBuilder = new StringBuilder();
         int add = 0;
-        for (int i=0; i<numberOfElementsMin; i++) {
-            int sum = fromChar(listNodeAsString1.charAt(i))+fromChar(listNodeAsString2.charAt(i)) + add;
+        for (int i = 0; i < numberOfElementsMin; i++) {
+            int sum = fromChar(listNodeAsString1.charAt(i)) + fromChar(listNodeAsString2.charAt(i)) + add;
             add = sum < 10 ? 0 : 1;
             resultStringBuilder.append(sum % 10);
         }
+
+        if (lengthL1 > lengthL2) {
+            add = handleDifferentLengths(listNodeAsString1, lengthL1, lengthL2, resultStringBuilder, add);
+        } else if (lengthL2 > lengthL1) {
+            add = handleDifferentLengths(listNodeAsString2, lengthL2, lengthL1, resultStringBuilder, add);
+        }
+
+        if (add == 1) {
+            resultStringBuilder.append(1);
+        }
+
         ListNode first = new ListNode(fromChar(resultStringBuilder.charAt(0)));
-        rec(first, resultStringBuilder.toString(), resultStringBuilder.length()-1);
+        listNodeFromString(first, resultStringBuilder.toString(), 1);
         return first;
+    }
+
+    private int handleDifferentLengths(String listNodeAsString, int lengthL1, int lengthL2,
+                                        StringBuilder resultStringBuilder, int add) {
+        for (int i = lengthL2; i < lengthL1; i++) {
+            int sum = add + fromChar(listNodeAsString.charAt(i));
+            add = sum < 10 ? 0 : 1;
+            resultStringBuilder.append(sum % 10);
+        }
+        return add;
+    }
+
+    private void listNodeFromString(ListNode first, String string, int index) {
+        if (index == string.length()) return;
+        ListNode next = new ListNode(fromChar(string.charAt(index)));
+        first.next = next;
+        listNodeFromString(next, string, ++index);
     }
 
     public ListNode addTwoNumbersBruteForce(ListNode l1, ListNode l2) {
@@ -37,9 +60,9 @@ public class AddTwoNumbersFromArray {
         int sum = first + second;
         String sumString = Integer.toString(sum);
 
-        ListNode firstNode = new ListNode(fromChar(sumString.charAt(sumString.length()-1)));
+        ListNode firstNode = new ListNode(fromChar(sumString.charAt(sumString.length() - 1)));
         if (sumString.length() > 1) {
-            rec(firstNode, sumString, sumString.length() - 2);
+            listNodeFromInverseString(firstNode, sumString, sumString.length() - 2);
         }
         return firstNode;
     }
@@ -57,17 +80,17 @@ public class AddTwoNumbersFromArray {
 
     private int reverseString(String intInReverseOrder) {
         StringBuilder intInOrder = new StringBuilder();
-        for (int i=intInReverseOrder.length()-1; i>=0; i--) {
+        for (int i = intInReverseOrder.length() - 1; i >= 0; i--) {
             intInOrder.append(intInReverseOrder.charAt(i));
         }
         return Integer.parseInt(intInOrder.toString());
     }
 
-    private void rec(ListNode first, String inverse, int i) {
+    private void listNodeFromInverseString(ListNode first, String inverse, int i) {
         if (i < 0) return;
         ListNode second = new ListNode(fromChar(inverse.charAt(i)));
         first.next = second;
-        rec(second, inverse, --i);
+        listNodeFromInverseString(second, inverse, --i);
     }
 
     private int fromChar(char c) {

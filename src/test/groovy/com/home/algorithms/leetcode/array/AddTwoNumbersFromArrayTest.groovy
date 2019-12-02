@@ -35,6 +35,8 @@ class AddTwoNumbersFromArrayTest extends Specification {
         l1            |      l2         |    expected
         create(2,4,3) | create(5, 6, 4) | create(7, 0, 8)
         create(7,7,7) | create(3,2,2) | create(0, 0, 0, 1)
+        create(7,7,7,8) | create(7,8,9) | create(4,6,7,9)
+        create(9,2,3) | create(1,2,3,4) | create(0,5,6,4)
         create(0) | create(0) | create(0)
     }
 
