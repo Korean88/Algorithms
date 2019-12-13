@@ -17,6 +17,18 @@ class BreadthFirstTraversalImplTest extends Specification {
         res == "abcdefghi"
     }
 
+
+    def 'test calculate depth'() {
+        given: 'a tree'
+        def root = createTree()
+
+        when: 'calculate depth'
+        def depth = traversalImpl.calculateDepth(root)
+
+        then: 'expect 4'
+        depth == 4
+    }
+
 /*
                  a
           b              c
