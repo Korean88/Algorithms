@@ -2,32 +2,14 @@ package com.home.algorithms.array;
 
 public class SubarraySum {
 
-    int calculateMaxSubarraySum(int[] array) {
-        if (array == null || array.length == 0) {
-            throw new IllegalArgumentException();
-        }
-        if (array.length == 1) {
-            return array[0];
-        }
-
-        int p1 = 0, p2 = 0;
-        int maxSum = Integer.MIN_VALUE;
-        while (p2 < array.length) {
-            int currentSum = sumUp(array, p1, p2);
-            maxSum = Math.max(maxSum, currentSum);
-            if (currentSum >= maxSum) {
-                p2++;
-            } else {
-                p1++;
-                if (p1!=p2) {
-                    p2--;
-                }
-                if (p1 > p2) {
-                    p2=p1;
-                }
+    int bruteForce(int[] array) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i; j < array.length; j++) {
+                max = Math.max(max, sumUp(array, i, j));
             }
         }
-        return maxSum;
+        return max;
     }
 
     private int sumUp(int[] array, int start, int end) {
@@ -36,5 +18,22 @@ public class SubarraySum {
             res+=array[i];
         }
         return res;
+    }
+
+    int calculateMaxSubarraySum(int[] array) {
+        if (array == null || array.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        if (array.length == 1) {
+            return array[0];
+        }
+
+        int maxSum = array[0];
+        int currentMax = array[0];
+        for (int i =1; i < array.length; i++) {
+            currentMax = Math.max(array[i]+currentMax, array[i]);
+            maxSum = Math.max(maxSum, currentMax);
+        }
+        return maxSum;
     }
 }
