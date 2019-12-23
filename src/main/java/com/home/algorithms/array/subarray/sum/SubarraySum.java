@@ -1,4 +1,4 @@
-package com.home.algorithms.array;
+package com.home.algorithms.array.subarray.sum;
 
 public class SubarraySum {
 

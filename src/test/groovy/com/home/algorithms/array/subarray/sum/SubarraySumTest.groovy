@@ -1,5 +1,6 @@
-package com.home.algorithms.array
+package com.home.algorithms.array.subarray.sum
 
+import com.home.algorithms.array.subarray.sum.SubarraySum
 import spock.lang.Specification
 
 class SubarraySumTest extends Specification {
