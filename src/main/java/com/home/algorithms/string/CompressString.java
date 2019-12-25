@@ -9,7 +9,7 @@ public class CompressString {
         if (input.length() == 1) {
             return input + 1;
         }
-        
+
         StringBuilder sb = new StringBuilder();
         int counter = 0;
         for (int i = 0; i < input.length(); i++) {
