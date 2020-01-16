@@ -15,11 +15,11 @@ class LongestUniqueStringTest extends Specification {
         res == expected
 
         where:
-        input           | expected
-        "aqwertpapeiu"  | 7
-        "aqwebbtapbiu"  | 6
-        "aaaa"          | 1
-        "aqwerbyabnmdfa"| 7
+        input            | expected
+        "aqwertpapeiu"   | 7
+        "aqwebbtapbiu"   | 6
+        "aaaa"           | 1
+        "aqwerbyabnmdfa" | 7
     }
 
     def 'test sliding windows solution'() {
@@ -31,12 +31,17 @@ class LongestUniqueStringTest extends Specification {
         res == expected
 
         where:
-        input           | expected
-        "aqwertpapeiu"  | 7
-        "aqwebbtapbiu"  | 6
-        "aaaa"          | 1
-        "aqwerbyabnmdfa"| 7
-        "abcdebfc"      | 5
+        input              | expected
+        "aqwertpapeiu"     | 7
+        "aqwebbtapbiu"     | 6
+        "aaaa"             | 1
+        "aqwerbyabnmdfa"   | 7
+        "abcdebfc"         | 5
+        "a"                | 1
+        ""                 | 0
+        null               | 0
+        "abcdecopdqwrtyui" | 12
+        "aabbcc"           | 2
     }
 
 }
