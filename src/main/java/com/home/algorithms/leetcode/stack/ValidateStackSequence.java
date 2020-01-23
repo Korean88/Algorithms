@@ -15,13 +15,13 @@ public class ValidateStackSequence {
             tempStack.push(pushed[i]);
             if (tempStack.peek() == popped[poppedIdx]) {
                 tempStack.pop();
-                poppedIdx = checkPrevious(tempStack, popped, ++poppedIdx);
+                poppedIdx = checkStackHead(tempStack, popped, ++poppedIdx);
             }
         }
         return tempStack.isEmpty();
     }
 
-    private int checkPrevious(Stack<Integer> tempStack, int[] popped, int poppedIdx) {
+    private int checkStackHead(Stack<Integer> tempStack, int[] popped, int poppedIdx) {
         while (tempStack.size() != 0) {
             if (popped[poppedIdx] == tempStack.peek()) {
                 tempStack.pop();
