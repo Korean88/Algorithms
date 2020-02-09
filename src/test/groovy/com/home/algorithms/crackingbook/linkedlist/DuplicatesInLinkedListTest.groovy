@@ -25,7 +25,7 @@ class DuplicatesInLinkedListTest extends Specification {
 
     def createNode(char[] values) {
         def node = new LinkedListNode(values[0])
-        def res = node;
+        def res = node
         for (int i = 1; i < values.length; i++) {
             node.next = new LinkedListNode(values[i])
             node = node.next
