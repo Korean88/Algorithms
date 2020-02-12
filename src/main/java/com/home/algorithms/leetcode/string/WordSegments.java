@@ -14,10 +14,10 @@ public class WordSegments {
         for (String word : wordDict) {
             if (s.contains(word)) {
                 int start = s.indexOf(word);
-                int end = word.length() - 1 + start;
-                String modified1 = s.substring(0, start);
-                String modified2 = s.substring(end+1);
-                if (wordBreak(modified1, wordDict) && wordBreak(modified2, wordDict)) {
+                int end = word.length() + start;
+                String leftPart = s.substring(0, start);
+                String rightPart = s.substring(end);
+                if (wordBreak(leftPart, wordDict) && wordBreak(rightPart, wordDict)) {
                     return true;
                 }
             }
