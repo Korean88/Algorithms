@@ -22,6 +22,7 @@ public class LongestUniqueString {
     }
 
     int slidingWindows(String s) {
+        if (s == null || s.length() == 0) return 0;
         int length = s.length();
         Set<Character> characters = new HashSet<>();
         int i = 0, j = 0, res = 0;

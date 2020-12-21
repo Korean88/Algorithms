@@ -4,32 +4,25 @@ import java.util.Stack;
 
 public class ValidateStackSequence {
 
-    public boolean validateStackSequences(int[] pushed, int[] popped) {
+    boolean validateStackSequences(int[] pushed, int[] popped) {
         if (pushed == null || popped == null || pushed.length != popped.length) {
             return false;
         }
-
-        Stack<Integer> tempStack = new Stack<>();
-        int poppedIdx = 0;
+        int poppedIndex = 0;
+        Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < pushed.length; i++) {
-            tempStack.push(pushed[i]);
-            if (tempStack.peek() == popped[poppedIdx]) {
-                tempStack.pop();
-                poppedIdx = checkPrevious(tempStack, popped, ++poppedIdx);
-            }
+            stack.push(pushed[i]);
+            poppedIndex = checkPushedElementsInStack(stack, popped, poppedIndex);
         }
-        return tempStack.isEmpty();
+        return stack.isEmpty();
     }
 
-    private int checkPrevious(Stack<Integer> tempStack, int[] popped, int poppedIdx) {
-        while (tempStack.size() != 0) {
-            if (popped[poppedIdx] == tempStack.peek()) {
-                tempStack.pop();
-                poppedIdx++;
-            } else {
-                return poppedIdx;
-            }
+    private int checkPushedElementsInStack(Stack<Integer> stack, int[] popped, int poppedIndex) {
+        while (!stack.isEmpty() && stack.peek() == popped[poppedIndex]) {
+            stack.pop();
+            poppedIndex++;
         }
-        return poppedIdx;
+        return poppedIndex;
     }
+
 }

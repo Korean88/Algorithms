@@ -1,34 +1,29 @@
 package com.home.algorithms.score;
 
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import java.util.*;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
 
 public class BestAverageScore {
 
-    public Pair<String, Integer> findWithHashMap(Object[][] studentsScores) {
-        Map<String, List<Integer>> table = new HashMap<>();
-        for (int i = 0; i < studentsScores.length; i++) {
-            String name = (String) ((Map.Entry) studentsScores[i][0]).getKey();
-            Integer score = (Integer) ((Map.Entry) studentsScores[i][0]).getValue();
-            if (table.get(name) != null) {
-                table.get(name).add(score);
-            } else {
-                table.put(name, Lists.newArrayList(score));
+    Object[] bestAvgScore(Object[][] scores) {
+        Map<Object, List<Object>> studentScores = Arrays.stream(scores)
+                .collect(groupingBy(s -> s[0], mapping(s -> s[1], Collectors.toList())));
+        Object[] res = new Object[2];
+        for (Map.Entry<Object, List<Object>> entry:studentScores.entrySet()) {
+            double avg = entry.getValue().stream()
+                    .mapToInt(o -> (int) o)
+                    .average()
+                    .orElse(Double.MIN_VALUE);
+            if (res[1] == null || avg > (double)res[1]) {
+                res[0] = entry.getKey();
+                res[1] = avg;
             }
         }
-        return table.entrySet().stream()
-                .map(e -> transformToPairWithAverageScore(e.getKey(), e.getValue()))
-                .max(Comparator.comparingInt(Pair::getRight))
-                .orElse(null);
-    }
-
-    private Pair<String, Integer> transformToPairWithAverageScore(String s, List<Integer> scores) {
-        Integer avg = (int) scores.stream()
-                .mapToInt(i -> i)
-                .average()
-                .orElse(0);
-        return Pair.of(s, avg);
+        return res;
     }
 }
