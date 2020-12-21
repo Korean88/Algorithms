@@ -17,11 +17,12 @@ class ExcelColsTest extends Specification {
         where: 'parameters'
         number | expected
         26     | "Z"
+        27     | "AA"
         51     | "AY"
         52     | "AZ"
         53     | "BA"
         676    | "YZ"
-        27     | "AA"
+        677    | "ZA"
         705    | "AAC"
     }
 }
