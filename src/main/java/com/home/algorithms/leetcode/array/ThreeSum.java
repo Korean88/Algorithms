@@ -1,40 +1,46 @@
 package com.home.algorithms.leetcode.array;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ThreeSum {
 
     public List<List<Integer>> threeSum(int[] nums) {
-        if (nums == null || nums.length == 0) {
+        if (nums==null || nums.length < 3) {
             return new ArrayList<>();
         }
+
         Arrays.sort(nums);
-        List<List<Integer>> res = new ArrayList<>();
+        Set<List<Integer>> resSet = new HashSet<>();
         for (int i=0; i<nums.length-2; i++) {
-            List<Integer> found = findTwoSum(nums, i);
-            if (!found.isEmpty()) {
-                res.add(found);
+            if (nums[i] > 0) break;
+            Queue<Integer> twoSum = findTwoSum(nums, i);
+            while (!twoSum.isEmpty()) {
+                List<Integer> threeSums = new ArrayList<>();
+                threeSums.add(nums[i]);
+                threeSums.add(twoSum.poll());
+                threeSums.add(twoSum.poll());
+                resSet.add(threeSums);
             }
         }
-        return res;
+        return new ArrayList<> (resSet);
     }
 
-    private List<Integer> findTwoSum(int[] nums, int i) {
+    private Queue<Integer> findTwoSum(int[] nums, int i) {
         int j = i+1;
         int k = nums.length-1;
-        int first = nums[i];
-        List<Integer> res = new ArrayList<>();
+        Queue<Integer> res = new LinkedList<>();
         while (j<k) {
-            int sum = first + nums[j] + nums[k];
+            int sum = nums[i]+nums[j]+nums[k];
             if (sum < 0) {
                 j++;
             } else if (sum > 0) {
                 k--;
             } else {
-                return Arrays.asList(nums[i], nums[j], nums[k]);
+                res.add(nums[j]);
+                res.add(nums[k]);
+                j++;
+                k--;
             }
         }
         return res;
