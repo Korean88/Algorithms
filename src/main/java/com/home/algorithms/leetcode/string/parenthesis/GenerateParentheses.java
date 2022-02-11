@@ -2,9 +2,9 @@ package com.home.algorithms.leetcode.string.parenthesis;
 
 import java.util.*;
 
-public class GenerateParenthesis {
+public class GenerateParentheses {
 
-    public List<String> generateParenthesis(int n) {
+    public List<String> generateParentheses(int n) {
         if (n <= 0) {
             return Collections.emptyList();
         }
