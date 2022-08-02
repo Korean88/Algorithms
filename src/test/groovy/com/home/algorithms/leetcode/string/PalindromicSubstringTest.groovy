@@ -18,6 +18,7 @@ class PalindromicSubstringTest extends Specification {
         input         | expected
         "abcabbaecdee" | "abba"
         "abcabtbaecdee" | "abtba"
+        "abacdfgdcaba" | "aba"
         "a" | "a"
         "ac" | "a"
         "aaaa" | "aaaa"
