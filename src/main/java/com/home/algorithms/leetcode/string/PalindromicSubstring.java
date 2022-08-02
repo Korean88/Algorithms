@@ -19,8 +19,10 @@ public class PalindromicSubstring {
                 end = (int)d+1;
             }
             while (start>=0 && end<length) {
-                if (s.charAt(start--)==s.charAt(end++)) {
-                    String currentLongest = s.substring(start+1, end);
+                if (s.charAt(start)==s.charAt(end)) {
+                    String currentLongest = s.substring(start, end + 1);
+                    end++;
+                    start--;
                     if (longestSubstring.length() < currentLongest.length()) {
                         longestSubstring=currentLongest;
                     }
