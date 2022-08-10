@@ -28,14 +28,14 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(expected, longest_size(input_text))
 
 
-def longest_size(str):
-    if str is None or len(str) == 0:
+def longest_size(input_str):
+    if input_str is None or len(input_str) == 0:
         return 0
-    length = len(str)
+    length = len(input_str)
     start, end, max_count = 0, 0, 0
     while end < length:
-        letters = str[start:end]
-        if letters.count(str[end]) > 0:
+        letters = input_str[start:end]
+        if letters.count(input_str[end]) > 0:
             start += 1
         else:
             end += 1
