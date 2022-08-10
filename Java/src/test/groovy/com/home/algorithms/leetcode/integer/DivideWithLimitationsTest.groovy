@@ -5,7 +5,7 @@ import spock.lang.Specification
 class DivideWithLimitationsTest extends Specification {
 
     def "should divide 2 integers"() {
-        given: 'Instancce'
+        given: 'Instance'
         def instance = new DivideWithLimitations()
 
         when: 'method called'
@@ -15,18 +15,20 @@ class DivideWithLimitationsTest extends Specification {
         res == expected
 
         where: 'Parameters'
-        dividend          | divisor | expected
-        10                | 3       | 3
-        11                | -3      | -3
-        -12               | 3       | -4
-        -23               | -5      | 4
-        -1                | 1       | -1
-        1                 | 1       | 1
-        1                 | -1      | -1
-        Integer.MAX_VALUE | -1      | Integer.MIN_VALUE + 1
-        Integer.MAX_VALUE | 1       | Integer.MAX_VALUE
-        Integer.MIN_VALUE | -1      | Integer.MAX_VALUE
-        Integer.MIN_VALUE | 1       | Integer.MIN_VALUE
+        dividend          | divisor           | expected
+        10                | 3                 | 3
+        11                | -3                | -3
+        -12               | 3                 | -4
+        -23               | -5                | 4
+        -1                | 1                 | -1
+        1                 | 1                 | 1
+        1                 | -1                | -1
+        0                 | -1                | 0
+        Integer.MAX_VALUE | -1                | Integer.MIN_VALUE + 1
+        Integer.MAX_VALUE | 1                 | Integer.MAX_VALUE
+        Integer.MIN_VALUE | -1                | Integer.MAX_VALUE
+        Integer.MIN_VALUE | 1                 | Integer.MIN_VALUE
+        Integer.MAX_VALUE | Integer.MAX_VALUE | 1
     }
 
 }
