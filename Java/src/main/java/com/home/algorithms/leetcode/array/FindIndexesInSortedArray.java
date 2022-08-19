@@ -1,49 +1,53 @@
 package com.home.algorithms.leetcode.array;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class FindIndexesInSortedArray {
 
     public int[] searchRange(int[] nums, int target) {
-        int[] res;
-        if (nums != null && nums.length > 0) {
-            Set<Integer> visitedState = new HashSet<>();
-            res = find(nums, target, 0, nums.length - 1, visitedState);
-        } else {
-            res = new int[]{-1, -1};
+        if (nums == null || nums.length == 0) {
+            return new int[]{-1, -1};
         }
-        return res;
+        if (nums.length == 1) {
+            return nums[0] == target ? new int[]{0, 0} : new int[]{-1, -1};
+        }
+        int first = findFirst(nums, target);
+        if (first == -1) {
+            return new int[]{-1, -1};
+        } else {
+            int last = findLast(nums, target);
+            return new int[]{first, last};
+        }
     }
 
-    private int[] find(int[] nums, int target, int start, int end, Set<Integer> visitedState) {
-        int center = start + (end - start) / 2;
-        if (!visitedState.contains(center)) {
-            visitedState.add(center);
-            if (nums[center] > target) {
-                end = Math.max(0, center - 1);
-                return find(nums, target, start, end, visitedState);
-            } else if (nums[center] < target) {
-                start = Math.min(center + 1, nums.length - 1);
-                return find(nums, target, start, end, visitedState);
-            } else if (nums[center] == target) {
-                int a = center;
-                int b = center;
-                while (nums[a] == target && a != 0) {
-                    a--;
-                }
-                if (nums[a] != target) {
-                    a++;
-                }
-                while (nums[b] == target && b != nums.length - 1) {
-                    b++;
-                }
-                if (nums[b] != target) {
-                    b--;
-                }
-                return new int[]{a, b};
+    private int findFirst(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = (right - left) / 2 + left;
+            if (nums[mid] == target) {
+                right = mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
-        return new int[]{-1, -1};
+        return right >= 0 && nums[right] == target ? right : -1;
     }
+
+    private int findLast(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = (right - left) / 2 + left + 1;
+            if (nums[mid] == target) {
+                left = mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left < nums.length && nums[left] == target ? left : -1;
+    }
+
 }
