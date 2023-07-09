@@ -7,16 +7,26 @@ class FindElementsWithDifferenceTest extends Specification {
 
     FindElementsWithDifference findElementsWithDifference = new FindElementsWithDifference()
 
-    def 'bruteforce should find all pairs with difference 2'() {
+    def 'linear should find all pairs with given difference'() {
         given: 'input and expected result'
-        def input = [1, 7, 5, 9, 2, 12, 3] as int[]
-        def expected = new HashSet([Pair.of(1, 3), Pair.of(7, 5), Pair.of(7, 9), Pair.of(5, 3)])
+        def input = inputArray as int[]
 
         when: 'find all pairs'
-        def res = findElementsWithDifference.findPairWithDifferenceBruteForce(input, 2)
+        def res = findElementsWithDifference.findPairWithDifferenceLinear(input, givenDifference)
 
         then: 'compare result with expected'
-        res == expected
+        res.containsAll(expected as Set)
+        res.size() == expected.size()
+
+        where: 'parameters'
+        inputArray                 | givenDifference | expected
+        [1, 7, 5, 9, 2, 12, 3]     | 2               | [Pair.of(1, 3), Pair.of(5, 7), Pair.of(3, 5), Pair.of(7, 9)]
+        [1, 7]                     | 6               | [Pair.of(1, 7)]
+        [1]                        | 6               | []
+        []                         | 6               | []
+        [1, 7, 5, 9, 2, 12, 3]     | 60              | []
+        [1, 12, 7, 5, 9, 2, 12, 3] | 0               | [Pair.of(12, 12)]
+        [1, 7, 5, 9, 2, 12, 3]     | 0               | []
     }
 
     def 'findWithSorting should find all pairs with given difference'() {
@@ -27,14 +37,17 @@ class FindElementsWithDifferenceTest extends Specification {
         def res = findElementsWithDifference.findWithSorting(input, givenDifference)
 
         then: 'compare result with expected'
-        res == expected as Set
+        res.containsAll(expected as Set)
+        res.size() == expected.size()
 
         where: 'parameters'
-        inputArray             | givenDifference | expected
-        [1, 7, 5, 9, 2, 12, 3] | 2               | [Pair.of(1, 3), Pair.of(5, 7), Pair.of(3, 5), Pair.of(7, 9)]
-        [1, 7]                 | 6               | [Pair.of(1, 7)]
-        [1]                    | 6               | []
-        []                     | 6               | []
-        [1, 7, 5, 9, 2, 12, 3] | 60              | []
+        inputArray                 | givenDifference | expected
+        [1, 7, 5, 9, 2, 12, 3]     | 2               | [Pair.of(1, 3), Pair.of(5, 7), Pair.of(3, 5), Pair.of(7, 9)]
+        [1, 7]                     | 6               | [Pair.of(1, 7)]
+        [1]                        | 6               | []
+        []                         | 6               | []
+        [1, 7, 5, 9, 2, 12, 3]     | 60              | []
+        [1, 12, 7, 5, 9, 2, 12, 3] | 0               | [Pair.of(12, 12)]
+        [1, 7, 5, 9, 2, 12, 3]     | 0               | []
     }
 }

@@ -10,7 +10,7 @@ public class ValidParentheses {
         if (s == null || s.isEmpty()) {
             return false;
         }
-        Map<Character, Character> map = new HashMap();
+        Map<Character, Character> map = new HashMap<>();
         map.put('(', ')');
         map.put('{', '}');
         map.put('[', ']');

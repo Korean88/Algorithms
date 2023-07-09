@@ -9,9 +9,15 @@ public class RansomNote {
         int[] dict = new int[26];
         int a = 'a';
         for (char c : magazine.toCharArray()) {
+            if (c == ' ') {
+                continue;
+            }
             dict[c - a]++;
         }
         for (char c : ransomNote.toCharArray()) {
+            if (c == ' ') {
+                continue;
+            }
             if (--dict[c - a] < 0) {
                 return false;
             }
