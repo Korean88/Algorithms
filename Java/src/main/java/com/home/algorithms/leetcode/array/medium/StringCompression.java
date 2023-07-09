@@ -23,7 +23,6 @@ public class StringCompression {
                 count = 1;
             }
         }
-        char a = 'a';
         if (chars[chars.length - 2] != chars[chars.length - 1]) {
             chars[modIndex++] = chars[chars.length - 1];
         } else {
