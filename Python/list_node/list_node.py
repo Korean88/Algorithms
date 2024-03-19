@@ -1,5 +1,5 @@
 class ListNode:
-    def __init__(self, value, next):
+    def __init__(self, value = 0, next = None):
         self.value = value
         self.next = next
 
@@ -15,6 +15,11 @@ class ListNode:
             this = this.next
             o = o.next
         return True
+
+    def __str__(self):
+        return f'(value={self.value}, next={self.next})'
+
+
 
 
 
