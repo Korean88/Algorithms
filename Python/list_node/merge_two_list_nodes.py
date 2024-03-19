@@ -3,7 +3,7 @@ from typing import Optional
 
 from parameterized import parameterized
 
-from algorithms.list_node.list_node import ListNode
+from list_node import ListNode
 
 
 def params():
@@ -39,64 +39,35 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(expected, merged)
 
     @parameterized.expand(params())
-    def test_merge_sorting(self, list_node1, list_node2, expected):
-        merged = merge_sorting(list_node1, list_node2)
+    def test_merge_recursive(self, list_node1, list_node2, expected):
+        merged = merge_recursive(list_node1, list_node2)
         self.assertEqual(expected, merged)
 
 
 def merge_iterative(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-    if list1 is not None and list2 is not None:
-        value1 = list1.value
-        value2 = list2.value
-        if value1 < value2:
-            head = ListNode(value1, None)
+    dummy_head = current = ListNode()
+    while list1 and list2:
+        if list1.value < list2.value:
+            current.next = list1
             list1 = list1.next
         else:
-            head = ListNode(value2, None)
+            current.next = list2
             list2 = list2.next
-    elif list2 is None:
-        return list1
-    else:
-        return list2
-    res = head
-    while list1 is not None or list2 is not None:
-        if list1 is not None and list2 is not None:
-            if list1.value < list2.value:
-                res.next = ListNode(list1.value, None)
-                res = res.next
-                list1 = list1.next
-            else:
-                res.next = ListNode(list2.value, None)
-                res = res.next
-                list2 = list2.next
-        elif list1 is None:
-            res.next = list2
-            list2 = None
+        current = current.next
+    current.next = list1 or list2
+    return dummy_head.next
+
+
+def merge_recursive(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    if list1 and list2:
+        if list1.value < list2.value:
+            list1.next = merge_recursive(list1.next, list2)
+            return list1
         else:
-            res.next = list1
-            list1 = None
-    return head
-
-
-def merge_sorting(node1: Optional[ListNode], node2: Optional[ListNode]) -> Optional[ListNode]:
-    list = []
-    while node1 is not None:
-        list.append(node1.value)
-        node1 = node1.next
-    while node2 is not None:
-        list.append(node2.value)
-        node2 = node2.next
-    length = len(list)
-    if length != 0:
-        list.sort()
-        head = ListNode(list[0], None)
-        pointer = head
-        for i in range(1, length):
-            pointer.next = ListNode(list[i], None)
-            pointer = pointer.next
+            list2.next = merge_recursive(list1, list2.next)
+            return list2
     else:
-        head = None
-    return head
+        return list1 or list2
 
 
 if __name__ == '__main__':
