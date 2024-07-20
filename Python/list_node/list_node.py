@@ -18,8 +18,3 @@ class ListNode:
 
     def __str__(self):
         return f'(value={self.value}, next={self.next})'
-
-
-
-
-

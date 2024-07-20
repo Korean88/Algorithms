@@ -34,6 +34,7 @@ class LongestUniqueStringTest extends Specification {
         input              | expected
         "aqwertpapeiu"     | 7
         "aqwebbtapbiu"     | 6
+        "aqwebb12tap3bbb"  | 7
         "aaaa"             | 1
         "aqwerbyabnmdfa"   | 7
         "abcdebfc"         | 5

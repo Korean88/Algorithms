@@ -1,3 +1,1 @@
-l1 = []
-l2 = None
-print(l1 or l2)
+print(int(1/2))
