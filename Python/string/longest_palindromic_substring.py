@@ -26,28 +26,27 @@ class MyTestCase(unittest.TestCase):
 def longest_palindrome(input_str):
     if input_str is None or len(input_str) == 0:
         return ""
-    center = 0
-    end = 1
     length = len(input_str)
-    result = input_str[0]
-    while end < length:
-        center += 0.5
-        if center % 1 == 0.5:
-            start = int(center - 0.5)
-            end = int(center + 0.5)
+    if length == 1:
+        return input_str
+    center = 0.5
+    res = input_str[0]
+    while center < length - 1:
+        left = int(center - 0.5)
+        if center % 1 > 0:
+            right = int(center + 0.5)
         else:
-            start = int(center - 1)
-            end = int(center + 1)
-        while start >= 0 and end < length:
-            if input_str[start] == input_str[end]:
-                substring = input_str[int(start):int(end)+1]
-                if len(substring) > len(result):
-                    result = substring
-                end += 1
-                start -= 1
-            else:
+            right = int(center + 1)
+        while input_str[left] == input_str[right]:
+            current = input_str[left:right + 1]
+            if len(res) < len(current):
+                res = current
+            left -= 1
+            right += 1
+            if left < 0 or right > length - 1:
                 break
-    return result
+        center += 0.5
+    return res
 
 
 if __name__ == '__main__':

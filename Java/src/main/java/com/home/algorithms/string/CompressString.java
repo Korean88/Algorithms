@@ -10,14 +10,14 @@ public class CompressString {
             return input + 1;
         }
         StringBuilder sb = new StringBuilder();
-        int counter = 0;
-        for (int i = 0; i < input.length(); i++) {
-            counter++;
-            char current = input.charAt(i);
-            if (i == input.length()-1 || input.charAt(i + 1) != current) {
-                sb.append(current).append(counter);
-                counter = 0;
+        for (int i = 0; i < input.length();) {
+            char first = input.charAt(i);
+            int count = 0;
+            while (i < input.length() && input.charAt(i) == first) {
+                count++;
+                i++;
             }
+            sb.append(first).append(count);
         }
         return sb.toString();
     }

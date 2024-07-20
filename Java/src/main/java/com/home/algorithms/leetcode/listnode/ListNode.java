@@ -12,14 +12,30 @@ public class ListNode {
 
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 
+    public int getVal() {
+        return val;
+    }
+
+    public void setVal(int val) {
+        this.val = val;
+    }
+
+    public ListNode getNext() {
+        return next;
+    }
+
+    public void setNext(ListNode next) {
+        this.next = next;
+    }
+
     public String toString() {
         ListNode ln = this;
         StringBuilder sb = new StringBuilder("[");
         while (ln != null) {
-            sb.append(ln.val).append(",");
+            sb.append(ln.val).append("->");
             ln = ln.next;
         }
-        return sb.replace(sb.length() - 1, sb.length(), "").append("]").toString();
+        return sb.replace(sb.length() - 2, sb.length(), "").append("]").toString();
     }
 
     @Override

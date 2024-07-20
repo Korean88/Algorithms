@@ -13,9 +13,7 @@ class StringCompressionTest extends Specification {
 
         then: 'verify result'
         res == expectedCount
-        for (int i = 0; i < res; i++) {
-            input[i] == expectedArray[i]
-        }
+        input == expectedArray
 
         where: 'parameters'
         input                                                                                 | expectedCount | expectedArray

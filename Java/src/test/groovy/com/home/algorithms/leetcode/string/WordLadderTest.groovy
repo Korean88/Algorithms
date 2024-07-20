@@ -18,5 +18,6 @@ class WordLadderTest extends Specification {
         beginWord | endWord | wordList                                   | expected
         "hit"     | "cog"   | ["hot", "dot", "dog", "lot", "log", "cog"] | 5
         "hit"     | "hot"   | ["hot", "dot", "dog", "lot", "log", "cog"] | 2
+        "a"       | "c"     | ["a", "b", "c"]                            | 1
     }
 }
